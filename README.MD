@@ -15,7 +15,7 @@ _Caso não tenha é necessário instalar e configurar, para isso vale dar uma ol
 
 ```
 sites:
-    - map: nomedoprojeto.mambo
+    - map: nomedoprojeto.dev
       to: /home/vagrant/code/pasta-do-projeto/public
 ```
 
@@ -30,7 +30,7 @@ databases:
 
 Abra o editor nano `sudo nano /etc/hosts `  
 
-Em seguida crie uma linha `192.168.10.10 nomedoprojeto.mambo` 
+Em seguida crie uma linha `192.168.10.10 nomedoprojeto.dev` 
 
 
 ### Configurando o WordPress
@@ -147,7 +147,7 @@ edição do _scss_ é preciso configurar o proxy no arquivo _gulpfile.js_
 
 ```
 browserSync.init(files, {
-    proxy: "http://nomedoprojeto.mambo/"
+    proxy: "http://nomedoprojeto.dev/"
 });
 ```
 
