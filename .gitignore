@@ -1,0 +1,13 @@
+public/wp-content/advanced-cache.php
+public/wp-content/cache/
+public/wp-content/wp-cache-config.php
+/public/wp-content/uploads
+/public/wp-content/themes/default-theme/node_modules
+/public/wp
+/vendor
+.idea
+.DS_Store
+.env
+.tmp
+.sass-cache
+style.css.map
