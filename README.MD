@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/794ae40f77e643638bc2d5fcb93c501e)](https://www.codacy.com/app/maclevison/starter-kit-wordpress?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=maclevison/starter-kit-wordpress&amp;utm_campaign=Badge_Grade)
+
 # Iniciando projeto WordPress
 
 ### Requisitos do ambiente
