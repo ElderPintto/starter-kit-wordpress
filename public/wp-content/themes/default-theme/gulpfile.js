@@ -15,7 +15,7 @@ gulp.task('browser-sync', function () {
 
     //BrowserSync Proxy
     browserSync.init(files, {
-        proxy: "http://dominio.test/"
+        proxy: "http://nomedoprojeto.test/"
     });
 });
 

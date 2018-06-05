@@ -17,7 +17,7 @@ _Caso não tenha é necessário instalar e configurar, para isso vale dar uma ol
 
 ```
 sites:
-    - map: nomedoprojeto.dev
+    - map: nomedoprojeto.test
       to: /home/vagrant/code/pasta-do-projeto/public
 ```
 
@@ -151,7 +151,7 @@ edição do _scss_ é preciso configurar o proxy no arquivo _gulpfile.js_
 
 ```
 browserSync.init(files, {
-    proxy: "http://seudominio.test/"
+    proxy: "http://nomedoprojeto.test/"
 });
 ```
 
