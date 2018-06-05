@@ -39,7 +39,7 @@ class Yoast_Google_REST {
     return $ret;
   }
 
-
+  
   /**
    * Decode an HTTP Response.
    * @static
@@ -51,7 +51,7 @@ class Yoast_Google_REST {
     $code = $response->getResponseHttpCode();
     $body = $response->getResponseBody();
     $decoded = null;
-
+    
     if ((intVal($code)) >= 300) {
       $decoded = json_decode($body, true);
       $err = 'Error calling ' . $response->getRequestMethod() . ' ' . $response->getUrl();
@@ -65,7 +65,7 @@ class Yoast_Google_REST {
 
       throw new Yoast_Google_ServiceException($err, $code, null, $decoded['error']['errors']);
     }
-
+    
     // Only attempt to decode the response, if the response code wasn't (204) 'no content'
     if ($code != '204') {
       $decoded = json_decode($body, true);

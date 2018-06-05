@@ -1,28 +1,20 @@
 <?php
 
-//set_site_transient( 'update_plugins', null );
-
 if( class_exists( 'Yoast_Update_Manager' ) && ! class_exists( "Yoast_Plugin_Update_Manager", false ) ) {
 
 	class Yoast_Plugin_Update_Manager extends Yoast_Update_Manager {
 
 		/**
-		* Constructor
-		*
-		* @param string $api_url
-		* @param string $item_name
-		* @param string $license_key
-		* @param string $slug The path to the main plugin file, relative to plugins dir
-		* @param string $version
-		* @param string $author (optional)
-		* @param string $text_domain
-		*/
+		 * Constructor
+		 *
+		 * @param Yoast_Product $product     The Product.
+		 * @param string        $license_key The License entered.
+		 */
 		public function __construct( Yoast_Product $product, $license_key ) {
 			parent::__construct( $product, $license_key );
 
 			// setup hooks
 			$this->setup_hooks();
-
 		}
 
 		/**
@@ -32,7 +24,7 @@ if( class_exists( 'Yoast_Update_Manager' ) && ! class_exists( "Yoast_Plugin_Upda
 
 			// check for updates
 			add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_updates_available_data' ) );
-
+			
 			// get correct plugin information (when viewing details)
 			add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3 );
 		}
@@ -61,7 +53,7 @@ if( class_exists( 'Yoast_Update_Manager' ) && ! class_exists( "Yoast_Plugin_Upda
 			if ( version_compare( $this->product->get_version(), $remote_data->new_version, '<' ) ) {
 
 				// remote version is newer, add to data
-				$data->response[ $this->product->get_slug() ] = $remote_data;
+				$data->response[ $this->product->get_file() ] = $remote_data;
 
 			}
 
@@ -87,16 +79,15 @@ if( class_exists( 'Yoast_Update_Manager' ) && ! class_exists( "Yoast_Plugin_Upda
 			}
 
 			$api_response = $this->get_remote_data();
-
+			
 			// did we get a response?
 			if ( $api_response === false ) {
-				return $data;
+				return $data;	
 			}
 
 			// return api response
 			return $api_response;
 		}
-
 	}
 
 }

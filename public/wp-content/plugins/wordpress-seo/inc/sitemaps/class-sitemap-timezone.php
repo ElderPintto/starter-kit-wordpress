@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\XML_Sitemaps
  */
 
@@ -69,12 +71,14 @@ class WPSEO_Sitemap_Timezone {
 	private function determine_timezone_string() {
 
 		// If site timezone string exists, return it.
-		if ( $timezone = get_option( 'timezone_string' ) ) {
+		$timezone = get_option( 'timezone_string' );
+		if ( ! empty( $timezone ) ) {
 			return $timezone;
 		}
 
 		// Get UTC offset, if it isn't set then return UTC.
-		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
+		$utc_offset = (int) get_option( 'gmt_offset', 0 );
+		if ( 0 === $utc_offset ) {
 			return 'UTC';
 		}
 
@@ -84,16 +88,16 @@ class WPSEO_Sitemap_Timezone {
 		// Attempt to guess the timezone string from the UTC offset.
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
+		if ( false !== $timezone ) {
+			return $timezone;
+		}
+
 		// Last try, guess timezone string manually.
-		if ( false === $timezone ) {
-
-			$is_dst = date( 'I' );
-
-			foreach ( timezone_abbreviations_list() as $abbr ) {
-				foreach ( $abbr as $city ) {
-					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
-						return $city['timezone_id'];
-					}
+		$timezone_list = timezone_abbreviations_list();
+		foreach ( $timezone_list as $abbr ) {
+			foreach ( $abbr as $city ) {
+				if ( $city['offset'] === $utc_offset ) {
+					return $city['timezone_id'];
 				}
 			}
 		}
@@ -108,7 +112,7 @@ class WPSEO_Sitemap_Timezone {
 	 * @return string
 	 */
 	private function get_timezone_string() {
-		if ( '' == $this->timezone_string ) {
+		if ( '' === $this->timezone_string ) {
 			$this->timezone_string = $this->determine_timezone_string();
 		}
 

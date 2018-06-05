@@ -1,5 +1,7 @@
 <?php
 /**
+ * WPSEO plugin file.
+ *
  * @package WPSEO\Admin\Options\Tabs
  */
 
@@ -20,118 +22,57 @@ class WPSEO_Option_Tabs_Formatter {
 
 	/**
 	 * @param WPSEO_Option_Tabs $option_tabs Option Tabs to get tabs from.
-	 * @param Yoast_Form        $yform       Yoast Form which is being used in the views.
-	 * @param array             $options     Options which are being used in the views.
 	 */
-	public function run( WPSEO_Option_Tabs $option_tabs, Yoast_Form $yform, $options = array() ) {
+	public function run( WPSEO_Option_Tabs $option_tabs ) {
 
 		echo '<h2 class="nav-tab-wrapper" id="wpseo-tabs">';
 		foreach ( $option_tabs->get_tabs() as $tab ) {
-			printf( '<a class="nav-tab" id="%1$s-tab" href="#top#%1$s">%2$s</a>', $tab->get_name(), $tab->get_label() );
+			printf(
+				'<a class="nav-tab" id="%1$s" href="%2$s">%3$s</a>',
+				esc_attr( $tab->get_name() . '-tab' ),
+				esc_url( '#top#' . $tab->get_name() ),
+				esc_html( $tab->get_label() )
+			);
 		}
 		echo '</h2>';
 
-		$filter_name            = sprintf( 'yoast_option_tab_help_center_%s', $option_tabs->get_base() );
-		$base_help_center_items = apply_filters( $filter_name, array() );
+		$help_center = new WPSEO_Help_Center( '', $option_tabs, WPSEO_Utils::is_yoast_seo_premium() );
+		$help_center->localize_data();
+		$help_center->mount();
 
 		foreach ( $option_tabs->get_tabs() as $tab ) {
-
 			$identifier = $tab->get_name();
 
-			printf( '<div id="%s" class="wpseotab">', $identifier );
+			$class = 'wpseotab ' . ( $tab->has_save_button() ? 'save' : 'nosave' );
+			printf( '<div id="%1$s" class="%2$s">', esc_attr( $identifier ), esc_attr( $class ) );
 
-			$filter_name       = sprintf( 'yoast_option_tab_help_center_%s_%s', $option_tabs->get_base(), $tab->get_name() );
-			$help_center_items = apply_filters( $filter_name, $base_help_center_items );
+			$tab_filter_name = sprintf( '%s_%s', $option_tabs->get_base(), $tab->get_name() );
 
-			if ( ! empty( $help_center_items ) ) {
-				$this->create_help_center( $option_tabs->get_base(), $tab->get_name(), $help_center_items );
+			/**
+			 * Allows to override the content that is display on the specific option tab.
+			 *
+			 * @internal For internal Yoast SEO use only.
+			 *
+			 * @api      string|null The content that should be displayed for this tab. Leave empty for default behaviour.
+			 *
+			 * @param WPSEO_Option_Tabs $option_tabs The registered option tabs.
+			 * @param WPSEO_Option_Tab  $tab         The tab that is being displayed.
+			 */
+			$option_tab_content = apply_filters( 'wpseo_option_tab-' . $tab_filter_name, null, $option_tabs, $tab );
+			if ( ! empty( $option_tab_content ) ) {
+				echo $option_tab_content;
 			}
-			else {
-				$video = $tab->get_video_url();
-				if ( ! empty( $video ) ) {
-					$tab_video_url = $video;
-					include WPSEO_PATH . 'admin/views/partial-settings-tab-video.php';
+
+			if ( empty( $option_tab_content ) ) {
+				// Output the settings view for all tabs.
+				$tab_view = $this->get_tab_view( $option_tabs, $tab );
+				if ( is_file( $tab_view ) ) {
+					$yform = Yoast_Form::get_instance();
+					require_once $tab_view;
 				}
-			}
-
-			$tab_view = $this->get_tab_view( $option_tabs, $tab );
-			if ( is_file( $tab_view ) ) {
-				require_once $tab_view;
 			}
 
 			echo '</div>';
 		}
-	}
-
-	/**
-	 * Build the help center
-	 *
-	 * @param string                   $base              The base where the tab belongs to.
-	 * @param string                   $tab               The tab containing these items.
-	 * @param WPSEO_Help_Center_Item[] $help_center_items List of helper items.
-	 */
-	private function create_help_center( $base, $tab, $help_center_items ) {
-
-		$id = sprintf( 'tab-help-center-%s-%s', $base, $tab );
-
-		?>
-		<div class="wpseo-tab-video-container">
-			<button type="button" class="wpseo-tab-video-container__handle" aria-controls="<?php echo $id ?>"
-			        aria-expanded="false">
-			<span
-				class="dashicons-before dashicons-editor-help"><?php _e( 'Help center', 'wordpress-seo' ) ?></span>
-				<span class="dashicons dashicons-arrow-down toggle__arrow"></span>
-			</button>
-			<div id="<?php echo $id ?>" class="wpseo-tab-video-slideout" aria-hidden="true">
-				<div class="yoast-help-center-tabs">
-					<ul>
-						<?php
-						$class = 'active wpseo-help-center-item';
-
-						/** @var WPSEO_Help_Center_Item $help_center_item */
-						foreach ( $help_center_items as $help_center_item ) {
-							if ( ! is_a( $help_center_item, 'WPSEO_Help_Center_Item' ) ) {
-								continue;
-							}
-
-							$id = $help_center_item->get_identifier();
-
-							$link_id  = "tab-link-{$base}_{$tab}__{$id}";
-							$panel_id = "tab-panel-{$base}_{$tab}__{$id}";
-							?>
-
-							<li id="<?php echo esc_attr( $link_id ); ?>" class="<?php echo $class; ?>">
-								<a href="<?php echo esc_url( "#$panel_id" ); ?>"
-								   aria-controls="<?php echo esc_attr( $panel_id ); ?>"><?php echo esc_html( $help_center_item->get_label() ); ?></a>
-							</li>
-							<?php
-							$class = 'wpseo-help-center-item';
-						}
-						?>
-					</ul>
-				</div>
-				<div class="contextual-help-tabs-wrap">
-					<?php
-					$classes = 'help-tab-content active';
-					foreach ( $help_center_items as $help_center_item ) {
-						if ( ! is_a( $help_center_item, 'WPSEO_Help_Center_Item' ) ) {
-							continue;
-						}
-
-						$id = $help_center_item->get_identifier();
-
-						$panel_id = "tab-panel-{$base}_{$tab}__{$id}";
-						?>
-						<div id="<?php echo esc_attr( $panel_id ); ?>" class="<?php echo $classes; ?>">
-							<?php echo $help_center_item->get_content(); ?>
-						</div>
-						<?php
-						$classes = 'help-tab-content';
-					}
-					?>
-				</div>
-			</div>
-		</div>
-		<?php
 	}
 }

@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Module
- *
+ * 
  * Each Module in the project will extend this base Module class.
  * Modules can be treated as independent plugins. Think of them as sub-plugins.
- *
+ * 
  * @author Mike Ems
  * @package Mvied
  */
@@ -13,12 +13,12 @@ class Mvied_Plugin_Module implements Mvied_Plugin_Module_Interface {
 	/**
 	 * Plugin object that this module extends
 	 *
-	 * @var Mvied_Plugin
+	 * @var Mvied_Plugin_Modular
 	 */
 	protected $_plugin;
 
 	/**
-	 *
+	 * 
 	 * Initializes the module
 	 * @param none
 	 * @return void
@@ -29,27 +29,26 @@ class Mvied_Plugin_Module implements Mvied_Plugin_Module_Interface {
 
 	/**
 	 * Set Plugin
-	 *
-	 * @param Mvied_Plugin $plugin
+	 * 
+	 * @param Mvied_Plugin_Modular $plugin
 	 * @return object $this
-	 * @uses Mvied_Plugin
 	 */
-	public function setPlugin( Mvied_Plugin $plugin ) {
-		$this->_plugin = $plugin;
+	public function setPlugin( Mvied_Plugin_Modular $plugin ) {
+		$this->_plugin = $plugin;		
 		return $this;
 	}
 
 	/**
 	 * Get Plugin
-	 *
+	 * 
 	 * @param none
-	 * @return Mvied_Plugin
+	 * @return Mvied_Plugin_Modular
 	 */
 	public function getPlugin() {
 		if ( ! isset($this->_plugin) ) {
 			die('Module ' . __CLASS__ . ' missing Plugin dependency.');
 		}
-
+		
 		return $this->_plugin;
 	}
 

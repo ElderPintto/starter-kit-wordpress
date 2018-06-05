@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * Logger Interface
  *
@@ -24,7 +24,7 @@ interface Mvied_Logger_Interface {
 	 * @return array
 	 */
 	public function getLog();
-
+	
 	/**
 	 * Adds a string to an array of log entries
 	 *
@@ -32,5 +32,5 @@ interface Mvied_Logger_Interface {
 	 * @return $this
 	 */
 	public function log( $string );
-
+	
 }

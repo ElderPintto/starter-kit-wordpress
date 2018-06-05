@@ -104,7 +104,7 @@ class Yoast_Google_ServiceResource {
     if (!isset($method['parameters'])) {
       $method['parameters'] = array();
     }
-
+    
     $method['parameters'] = array_merge($method['parameters'], $this->stackParameters);
     foreach ($parameters as $key => $val) {
       if ($key != 'postBody' && ! isset($method['parameters'][$key])) {

@@ -1,6 +1,6 @@
 <?php
 
-if( ! class_exists( "Yoast_API_Request", false ) ) {
+if ( ! class_exists( "Yoast_API_Request", false ) ) {
 
 	/**
 	* Handles requests to the Yoast EDD API
@@ -42,7 +42,7 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 
 		/**
 		* Constructor
-		*
+		* 
 		* @param string url
 		* @param array $args
 		*/
@@ -115,7 +115,7 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 		* Was a valid response returned?
 		*
 		* @return boolean
-		*/
+		*/ 
 		public function is_valid() {
 			return ( $this->success === true );
 		}
@@ -133,8 +133,6 @@ if( ! class_exists( "Yoast_API_Request", false ) ) {
 		public function get_response() {
 			return $this->response;
 		}
-
 	}
 
 }
-
