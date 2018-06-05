@@ -9,7 +9,7 @@
 - [Git]()
 
 Vamos iniciar partindo do princípio que você já tenha um ambiente de desenvolvimento instalado, com o Homestead. 
-_Caso não tenha é necessário instalar e configurar, para isso vale dar uma olhada no [Homestead](https://laravel.com/docs/5.5/homestead)_
+_Caso não tenha é necessário instalar e configurar, para isso vale dar uma olhada no [Homestead](https://laravel.com/docs/5.6/homestead)_
  
 ### Configurando o Homestead
 
