@@ -1,50 +1,51 @@
-//Incluindo os módulos necessários.
-var gulp = require('gulp'),
-    browserSync = require('browser-sync'),
-    sass = require('gulp-sass'),
-    imagemin = require('gulp-imagemin');
+var gulp = require('gulp');
+var browserSync = require('browser-sync');
+var sass = require('gulp-sass');
+var imagemin = require('gulp-imagemin');
 
+//----------------------------
+//BrowserSync.
+//----------------------------
+gulp.task('browser-sync', function () {
+    var files = [
+        './style.css',
+        './*.php',
+        './js/*.js'
+    ];
 
-   //Configurando o BrowserSync.
-    gulp.task('browser-sync', function () {
-        var files = [
-            './style.css',
-            './*.php',
-            './js/*.js'
-
-        ];
-
-        //Iniciando BrowserSync com o PHP
-        browserSync.init(files, {
-            proxy: "http://cegas.mambo/"
-        });
+    //BrowserSync Proxy
+    browserSync.init(files, {
+        proxy: "http://dominio.test/"
     });
+});
 
-    //Configurando o sass
-    gulp.task('sass', function () {
-        return gulp.src('assets/sass/*.scss')
-            .pipe(sass({
-                    'outputStyle' : 'compressed'
-                }))
-            .pipe(gulp.dest('./'))
-            .pipe(browserSync.stream())
-    });
+//----------------------------
+//Sass
+//----------------------------
+gulp.task('sass', function () {
+    return gulp.src('assets/sass/*.scss')
+        .pipe(sass({
+            'outputStyle': 'compressed'
+        }))
+        .pipe(gulp.dest('./'))
+        .pipe(browserSync.stream())
+});
 
-    //Otimizando images
-    gulp.task('img', function() {
-        gulp.src('assets/images/*.{png,jpg,gif}')
-            .pipe(imagemin({
+//----------------------------
+//Optimizing images
+//----------------------------
+gulp.task('img', function () {
+    gulp.src('assets/images/*.{png,jpg,gif}')
+        .pipe(imagemin({
+            optimizationLevel: 7,
+            progressive: true
+        }))
+        .pipe(gulp.dest('img'))
+});
 
-                optimizationLevel: 7,
-                progressive: true
-
-            }))
-            .pipe(gulp.dest('img'))
-    });
-
-    //Creat a default task that can be called using 'gulp.
-    //The task will process sass, run browser-sync and start watching for changes.
-
-    gulp.task('default', ['sass', 'browser-sync', 'img'], function () {
-        gulp.watch("assets/sass/**/*.scss", ['sass']);
-    })
+//----------------------------
+//Default task that can be called using 'gulp.
+//----------------------------
+gulp.task('default', ['sass', 'browser-sync', 'img'], function () {
+    gulp.watch("assets/sass/**/*.scss", ['sass']);
+});
