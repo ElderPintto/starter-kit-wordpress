@@ -5,7 +5,7 @@
 ### Requisitos do ambiente
 
 - [Vagrant](https://www.vagrantup.com)
-- [Homestead](https://laravel.com/docs/5.5/homestead)
+- [Homestead](https://laravel.com/docs/5.6/homestead)
 - [Git]()
 
 Vamos iniciar partindo do princípio que você já tenha um ambiente de desenvolvimento instalado, com o Homestead. 
@@ -43,7 +43,9 @@ no Homestead:
 * Navegar até a pasta do projeto `$ cd code/pasta-do-projeto/` 
 * Rodar `composer install` 
 
-É preciso configurar um arquivo _.env_ para conexão com o banco de dados.
+O tema padrão vai com um arquivo `.env.example` que deverá ser renomeado para `.env`
+
+Após renomear, insira _database username_ para conexão com o banco de dados.
 
 ```
 <?php
@@ -149,8 +151,7 @@ edição do _scss_ é preciso configurar o proxy no arquivo _gulpfile.js_
 
 ```
 browserSync.init(files, {
-    proxy: "http://dominio.test/"
-    
+    proxy: "http://seudominio.test/"
 });
 ```
 
@@ -158,3 +159,15 @@ browserSync.init(files, {
 
 - Navegar até a pasta do tema `cd /code/pasta-do-projeto/public/wp-content/themes/default-theme/`
 - Rodar `gulp`
+
+
+### Plugins úteis
+
+- [ACF](https://wordpress.org/plugins/advanced-custom-fields/)
+- [Contact Form 7](https://wordpress.org/plugins/contact-form-7/)
+- [Custom Post Type Ui](https://wordpress.org/plugins/custom-post-type-ui/)
+- [Duplicate Post](https://wordpress.org/plugins/duplicate-post/)
+- [Simple Custom Post Order](https://wordpress.org/plugins/simple-custom-post-order/)
+- [WordPress HTTPS (SSL)](https://wordpress.org/plugins/wordpress-https/)
+- [Yoast SEO](https://wordpress.org/plugins/wordpress-seo/)
+- [WP Super Cache](https://wordpress.org/plugins/wp-super-cache/)
