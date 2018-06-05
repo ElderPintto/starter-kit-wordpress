@@ -149,7 +149,8 @@ edição do _scss_ é preciso configurar o proxy no arquivo _gulpfile.js_
 
 ```
 browserSync.init(files, {
-    proxy: "http://nomedoprojeto.dev/"
+    proxy: "http://dominio.test/"
+    
 });
 ```
 
