@@ -43,4 +43,4 @@ require_once( ABSPATH . 'wp-settings.php' );
 // =======================
 // dont download plugin for admin
 // =======================
-define('DISALLOW_FILE_MODS',true);
+define( 'DISALLOW_FILE_MODS', true );

@@ -10,16 +10,16 @@
 get_header();
 ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+    <div id="primary" class="content-area">
+        <main id="main" class="site-main">
 
-			<section class="error-404 not-found">
-				<header class="page-header">
-					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'default-theme' ); ?></h1>
-				</header><!-- .page-header -->
+            <section class="error-404 not-found">
+                <header class="page-header">
+                    <h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'default-theme' ); ?></h1>
+                </header><!-- .page-header -->
 
-				<div class="page-content">
-					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'default-theme' ); ?></p>
+                <div class="page-content">
+                    <p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'default-theme' ); ?></p>
 
 					<?php
 					get_search_form();
@@ -27,9 +27,9 @@ get_header();
 					the_widget( 'WP_Widget_Recent_Posts' );
 					?>
 
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'default-theme' ); ?></h2>
-						<ul>
+                    <div class="widget widget_categories">
+                        <h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'default-theme' ); ?></h2>
+                        <ul>
 							<?php
 							wp_list_categories( array(
 								'orderby'    => 'count',
@@ -39,8 +39,8 @@ get_header();
 								'number'     => 10,
 							) );
 							?>
-						</ul>
-					</div><!-- .widget -->
+                        </ul>
+                    </div><!-- .widget -->
 
 					<?php
 					/* translators: %1$s: smiley */
@@ -50,11 +50,11 @@ get_header();
 					the_widget( 'WP_Widget_Tag_Cloud' );
 					?>
 
-				</div><!-- .page-content -->
-			</section><!-- .error-404 -->
+                </div><!-- .page-content -->
+            </section><!-- .error-404 -->
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+        </main><!-- #main -->
+    </div><!-- #primary -->
 
 <?php
 get_footer();

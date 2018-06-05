@@ -26,6 +26,7 @@ function default_theme_customize_register( $wp_customize ) {
 		) );
 	}
 }
+
 add_action( 'customize_register', 'default_theme_customize_register' );
 
 /**
@@ -52,4 +53,5 @@ function default_theme_customize_partial_blogdescription() {
 function default_theme_customize_preview_js() {
 	wp_enqueue_script( 'default-theme-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20151215', true );
 }
+
 add_action( 'customize_preview_init', 'default_theme_customize_preview_js' );

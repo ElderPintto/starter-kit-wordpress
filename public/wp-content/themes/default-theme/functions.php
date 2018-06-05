@@ -96,6 +96,7 @@ function default_theme_content_width() {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 	$GLOBALS['content_width'] = apply_filters( 'default_theme_content_width', 640 );
 }
+
 add_action( 'after_setup_theme', 'default_theme_content_width', 0 );
 
 /**
@@ -114,6 +115,7 @@ function default_theme_widgets_init() {
 		'after_title'   => '</h2>',
 	) );
 }
+
 add_action( 'widgets_init', 'default_theme_widgets_init' );
 
 /**
@@ -130,6 +132,7 @@ function default_theme_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
+
 add_action( 'wp_enqueue_scripts', 'default_theme_scripts' );
 
 /**

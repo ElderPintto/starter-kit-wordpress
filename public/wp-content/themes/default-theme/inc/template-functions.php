@@ -9,6 +9,7 @@
  * Adds custom classes to the array of body classes.
  *
  * @param array $classes Classes for the body element.
+ *
  * @return array
  */
 function default_theme_body_classes( $classes ) {
@@ -24,6 +25,7 @@ function default_theme_body_classes( $classes ) {
 
 	return $classes;
 }
+
 add_filter( 'body_class', 'default_theme_body_classes' );
 
 /**
@@ -34,4 +36,5 @@ function default_theme_pingback_header() {
 		echo '<link rel="pingback" href="', esc_url( get_bloginfo( 'pingback_url' ) ), '">';
 	}
 }
+
 add_action( 'wp_head', 'default_theme_pingback_header' );
