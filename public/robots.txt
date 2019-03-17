@@ -10,4 +10,4 @@ Disallow: /wp-
 
 Allow: /wp-content/uploads/
 
-Sitemap: http://www.hotelpontaverde.com/sitemap.xml
+Sitemap: http://www.{domainname}.com/sitemap.xml
